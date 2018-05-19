@@ -10,7 +10,7 @@ public class UnlimitedQueueApplicationPoster extends AbstractApplicationPoster {
     public UnlimitedQueueApplicationPoster(double modelingTime) {
         super(modelingTime);
     }
-
+    @Override
     public void postingApplications(List<Application> applications, List<ServiceChannel> channels) {
         ServiceChannel earliestReleaseChannel;
         for (Application application : applications) {

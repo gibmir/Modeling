@@ -1,7 +1,8 @@
-package modeling;
+package modeling.systems;
 
 import application.Application;
 import channels.ServiceChannel;
+import modeling.types.DigitalInformationTransmissionPoster;
 
 import java.util.Comparator;
 import java.util.List;
@@ -43,5 +44,11 @@ public class QueuingSystemCharacteristicsCollector {
 
     public static double getUseRate(double workTime, double serviceEndTime, int channelsCount) {
         return workTime / serviceEndTime / channelsCount;
+    }
+    public static int getDiscardedApplicationsCount(DigitalInformationTransmissionPoster digitalInformationTransmissionPoster){
+        return digitalInformationTransmissionPoster.getDiscardedApplicationsCount();
+    }
+    public static int getResourcesConnectionCount(DigitalInformationTransmissionPoster digitalInformationTransmissionPoster){
+        return  digitalInformationTransmissionPoster.getResourceConnectionsCount();
     }
 }

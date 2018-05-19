@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class AbstractApplicationPoster {
-    private final double modelingTime;
+    protected final double modelingTime;
 
     AbstractApplicationPoster(double modelingTime) {
         this.modelingTime = modelingTime;
@@ -22,7 +22,7 @@ public abstract class AbstractApplicationPoster {
     }
 
     protected void applicationPost(Application application, ServiceChannel earliestReleaseChannel) {
-        if (managesToServe(earliestReleaseChannel.getReleaseTime())) {
+        if (manageToService(earliestReleaseChannel)) {
             if (arrivedOnTime(application,earliestReleaseChannel.getReleaseTime())) {
                 serviceApp(application, earliestReleaseChannel);
             } else {
@@ -31,21 +31,22 @@ public abstract class AbstractApplicationPoster {
         }
     }
 
-    private boolean managesToServe(double channelReleaseTime) {
-        return channelReleaseTime < modelingTime;
+    protected boolean manageToService(ServiceChannel serviceChannel) {
+        return serviceChannel.getReleaseTime() < modelingTime;
     }
 
-    private boolean arrivedOnTime(Application application, double channelReleaseTime) {
+    protected boolean arrivedOnTime(Application application, double channelReleaseTime) {
         return application.getArrivalTime() >= channelReleaseTime;
     }
 
-    private static void serviceApp(Application application, ServiceChannel channel) {
+    protected void serviceApp(Application application, ServiceChannel channel) {
         channel.setReleaseTime(application.getArrivalTime() + application.getServiceTime());
+        application.setServiceStartTime(application.getArrivalTime());
         application.setServiceEndTime(channel.getReleaseTime());
         application.setProcessed(true);
     }
 
-    private static void queueUp(Application application, ServiceChannel channel) {
+    protected void queueUp(Application application, ServiceChannel channel) {
         double channelReleaseTime = channel.getReleaseTime();
         application.setServiceStartTime(channelReleaseTime);
         application.setQueueWaitTime(application.getServiceStartTime() - application.getArrivalTime());

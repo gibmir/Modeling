@@ -6,7 +6,7 @@ package application;
 public class Application {
 
     private final double arrivalTime;
-    private final double serviceTime;
+    private double serviceTime;
     private double serviceStartTime;
     private double serviceEndTime;
     private double queueWaitTime;
@@ -55,6 +55,10 @@ public class Application {
 
     public void setProcessed(boolean processed) {
         this.processed = processed;
+    }
+
+    public void setServiceTime(double serviceTime) {
+        this.serviceTime = serviceTime;
     }
 
     @Override

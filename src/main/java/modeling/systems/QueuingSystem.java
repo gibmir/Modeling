@@ -1,22 +1,22 @@
-package modeling;
+package modeling.systems;
 
 import application.Application;
 import channels.ServiceChannel;
 import modeling.types.AbstractApplicationPoster;
 
-import static modeling.QueuingSystemCharacteristicsCollector.*;
+import static modeling.systems.QueuingSystemCharacteristicsCollector.*;
 
 import java.util.List;
 
 public class QueuingSystem {
     private List<Application> applications;
     private List<ServiceChannel> channels;
-    private AbstractApplicationPoster modelingType;
+    protected AbstractApplicationPoster modelingType;
 
-    public QueuingSystem(List<Application> applications, List<ServiceChannel> channels, AbstractApplicationPoster modelingType) {
+    public QueuingSystem(List<Application> applications, List<ServiceChannel> channels, AbstractApplicationPoster abstractApplicationPoster) {
         this.applications = applications;
         this.channels = channels;
-        this.modelingType = modelingType;
+        this.modelingType = abstractApplicationPoster;
     }
 
     public void printResults() {
@@ -34,6 +34,4 @@ public class QueuingSystem {
         System.out.println("Work time: " + workTime);
         System.out.println("Use rate: " + getUseRate(workTime, serviceEndTime, channels.size()));
     }
-
-
 }
